@@ -113,13 +113,27 @@ def create_user_proxy():
 完成测试后请回复 TERMINATE。""",
     )
 
+
 async def run_software_development_team():
     """运行软件开发团队协作"""
     
     print("🔧 正在初始化模型客户端...")
     
     # 先使用标准的 OpenAI 客户端测试
-    model_client = create_openai_model_client()
+    model_client = OpenAIChatCompletionClient(
+        model="deepseek-chat",
+        api_key=os.getenv("LLM_API_KEY"),
+        base_url="https://api.deepseek.com/v1",
+        model_info={
+            "function_calling": True,
+            "max_tokens": 4096,
+            "context_length": 32768,
+            "vision": False,
+            "json_output": True,
+            "family": "deepseek",
+            "structured_output": True,
+        }
+    )
     
     print("👥 正在创建智能体团队...")
     

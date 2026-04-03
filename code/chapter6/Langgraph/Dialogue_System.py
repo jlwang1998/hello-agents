@@ -9,6 +9,7 @@ import asyncio
 from typing import TypedDict, Annotated
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_openai import ChatOpenAI
+from openai import OpenAI
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from langgraph.checkpoint.memory import InMemorySaver
@@ -29,10 +30,10 @@ class SearchState(TypedDict):
     step: str             # 当前步骤
 
 # 初始化模型和Tavily客户端
-llm = ChatOpenAI(
-    model=os.getenv("LLM_MODEL_ID", "gpt-4o-mini"),
+llm = OpenAI(
+    model=os.getenv("LLM_MODEL_ID"),
     api_key=os.getenv("LLM_API_KEY"),
-    base_url=os.getenv("LLM_BASE_URL", "https://api.openai.com/v1"),
+    base_url=os.getenv("LLM_BASE_URL"),
     temperature=0.7
 )
 
